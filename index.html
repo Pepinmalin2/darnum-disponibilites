@@ -160,9 +160,18 @@
     elNote.classList.toggle('alert', !!alerte);
   }
 
-  // Nombre de mois affichables côte à côte : calqué sur les points de rupture CSS
-  // pour que la hauteur de la page ne change jamais.
+  // Nombre de mois affichables côte à côte. On lit la grille CSS réellement
+  // appliquée plutôt que de recalculer les points de rupture en JavaScript :
+  // dans une iframe redimensionnée par la page hôte, les deux peuvent diverger
+  // et on se retrouve avec un seul mois dans un cadre large.
   function parEcran(){
+    try {
+      var v = getComputedStyle(elMois).gridTemplateColumns;
+      if (v && v !== 'none'){
+        var n = v.trim().split(/\s+/).length;
+        if (n >= 1 && n <= 3) return n;
+      }
+    } catch (e) {}
     var w = document.documentElement.clientWidth;
     return w >= 1000 ? 3 : (w >= 660 ? 2 : 1);
   }
@@ -207,11 +216,17 @@
   btnPrec.addEventListener('click', function(){ debut = Math.max(0, debut - 1); afficher(); });
   btnSuiv.addEventListener('click', function(){ debut = debut + 1; afficher(); });
 
+  // La page hôte peut redimensionner l'iframe après le chargement, sans qu'un
+  // évènement resize nous parvienne toujours. On surveille donc directement la
+  // racine du document, et on repasse une fois au chargement complet.
   var redim;
-  window.addEventListener('resize', function(){
+  function replanifier(){
     clearTimeout(redim);
-    redim = setTimeout(afficher, 150);
-  });
+    redim = setTimeout(afficher, 120);
+  }
+  window.addEventListener('resize', replanifier);
+  window.addEventListener('load', replanifier);
+  if (window.ResizeObserver) new ResizeObserver(replanifier).observe(document.documentElement);
 
   function render(data){
     if (!data || typeof data !== 'object') throw new Error('format');
