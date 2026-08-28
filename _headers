@@ -1,3 +1,11 @@
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Robots-Tag: noindex
+
 /occupancy.json
   Access-Control-Allow-Origin: *
-  Cache-Control: public, max-age=1800
+  Cache-Control: public, max-age=900, stale-while-revalidate=86400
+
+/index.html
+  Cache-Control: public, max-age=300
