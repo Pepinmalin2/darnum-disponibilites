@@ -43,7 +43,7 @@
   }
   .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
       clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
-  .wrap{width:100%;max-width:1080px;display:flex;flex-direction:column;gap:12px}
+  .wrap{width:100%;max-width:390px;display:flex;flex-direction:column;gap:12px}
 
   .bar{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
   .titre{font-family:"Fraunces",Georgia,"Times New Roman",serif;font-optical-sizing:auto;
@@ -64,14 +64,9 @@
   .nav button:disabled{opacity:.3;cursor:default}
   .nav button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
-  /* Sur écran étroit, les flèches restent à côté du titre et la légende
-     passe seule à la ligne : plus lisible que l'inverse. */
-  @media (max-width:659px){
-    .legend{order:3;flex-basis:100%;justify-content:center}
-  }
-  .months{display:grid;gap:14px;grid-template-columns:1fr;justify-content:center}
+  .months{display:block}
   .m{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 12px 10px;
-     max-width:330px;width:100%;margin:0 auto}
+     width:100%;margin:0 auto}
   .cal{width:100%;border-collapse:separate;border-spacing:4px;table-layout:fixed;margin:4px -4px -4px}
   .cal caption{text-align:left;padding:0 4px 4px}
   .cal caption b{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:.98rem;display:block}
@@ -163,14 +158,6 @@
   // rupture CSS et le rendu JavaScript ne peuvent donc pas diverger, ce qui
   // arrivait dans l'iframe du site où l'on obtenait un seul mois dans un cadre
   // large.
-  var LARGEUR_CARTE = 330, ECART = 14;
-
-  function parEcran(){
-    var w = elMois.getBoundingClientRect().width || document.documentElement.clientWidth;
-    var n = Math.floor((w + ECART) / (LARGEUR_CARTE + ECART));
-    return Math.max(1, Math.min(3, n));
-  }
-
   function carte(ym){
     var p = ym.split('-'), y = +p[0], m = +p[1] - 1;
     var joursPris = new Set((occ[ym] || []).filter(function(n){ return Number.isInteger(n); }));
@@ -201,12 +188,10 @@
   }
 
   function afficher(){
-    var n = parEcran();
-    if (debut > cles.length - n) debut = Math.max(0, cles.length - n);
-    elMois.style.gridTemplateColumns = 'repeat(' + n + ', minmax(0, 1fr))';
-    elMois.innerHTML = cles.slice(debut, debut + n).map(carte).join('');
+    if (debut > cles.length - 1) debut = Math.max(0, cles.length - 1);
+    elMois.innerHTML = carte(cles[debut]);
     btnPrec.disabled = debut === 0;
-    btnSuiv.disabled = debut + n >= cles.length;
+    btnSuiv.disabled = debut >= cles.length - 1;
   }
 
   btnPrec.addEventListener('click', function(){ debut = Math.max(0, debut - 1); afficher(); });
