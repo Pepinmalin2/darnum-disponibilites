@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Disponibilités — Riad Dar Num</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Karla:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --ground:#F6F5F1; --card:#FFFFFF; --ink:#22282A; --muted:#78817C; --line:#E2E4DD;
+    --free-bg:#FFFFFF; --free-br:#D5D9D0; --busy-bg:#E3E6DF; --busy-ink:#9AA298;
+    --accent:#1E6B57; --accent-ink:#FFFFFF;
+    --shadow:0 1px 2px rgba(34,40,42,.05), 0 8px 24px rgba(34,40,42,.04);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#141817; --card:#1C2120; --ink:#E8EBE6; --muted:#8F9791; --line:#2A302E;
+      --free-bg:#232928; --free-br:#39413E; --busy-bg:#191D1C; --busy-ink:#5C645F;
+      --accent:#4FA98D; --accent-ink:#0F1413;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.22);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#141817; --card:#1C2120; --ink:#E8EBE6; --muted:#8F9791; --line:#2A302E;
+    --free-bg:#232928; --free-br:#39413E; --busy-bg:#191D1C; --busy-ink:#5C645F;
+    --accent:#4FA98D; --accent-ink:#0F1413;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.22);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    padding:clamp(20px,4vw,40px) clamp(14px,3vw,28px);
+    background:var(--ground); color:var(--ink);
+    font-family:"Karla",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-variant-numeric:tabular-nums; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1000px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(20px,3.4vw,32px)}
+  header{display:flex;flex-direction:column;gap:6px}
+  .eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  h1{font-family:"Fraunces",Georgia,serif;font-optical-sizing:auto;
+     font-size:clamp(1.7rem,4vw,2.4rem);font-weight:400;line-height:1.1;margin:0;
+     text-wrap:balance;letter-spacing:-.015em}
+  .lede{color:var(--muted);font-size:.95rem;max-width:46ch;margin:0}
+  .legend{display:flex;flex-wrap:wrap;gap:20px;font-size:.82rem;color:var(--muted)}
+  .legend span{display:inline-flex;align-items:center;gap:8px}
+  .sw{width:14px;height:14px;border-radius:4px;flex:none}
+  .sw.free{background:var(--free-bg);border:1px solid var(--free-br)}
+  .sw.busy{background:var(--busy-bg);border:1px solid var(--busy-bg)}
+  .months{display:grid;grid-template-columns:repeat(auto-fit,minmax(252px,1fr));gap:clamp(14px,2.2vw,22px)}
+  .m{background:var(--card);border:1px solid var(--line);border-radius:14px;
+     padding:18px 16px 16px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px}
+  .m h2{font-family:"Fraunces",Georgia,serif;font-weight:600;font-size:1.02rem;margin:0}
+  .m h2 .yr{color:var(--muted);font-weight:400}
+  .dow,.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+  .dow div{font-size:.66rem;color:var(--muted);text-align:center;text-transform:uppercase;
+           letter-spacing:.08em;font-weight:600}
+  .d{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;
+     font-size:.82rem;border-radius:7px;border:1px solid transparent}
+  .d.free{background:var(--free-bg);border-color:var(--free-br)}
+  .d.busy{background:var(--busy-bg);color:var(--busy-ink);text-decoration:line-through;text-decoration-thickness:1px}
+  .d.pad{visibility:hidden}
+  .d.past{opacity:.3}
+  footer{border-top:1px solid var(--line);padding-top:20px;display:flex;flex-wrap:wrap;
+         gap:16px;align-items:center;justify-content:space-between}
+  .note{font-size:.8rem;color:var(--muted);max-width:44ch;margin:0}
+  .cta{display:inline-block;background:var(--accent);color:var(--accent-ink);text-decoration:none;
+       padding:12px 22px;border-radius:9px;font-size:.88rem;font-weight:600;transition:opacity .15s ease}
+  .cta:hover{opacity:.88}
+  .cta:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  @media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Riad Dar Num · Médina de Marrakech</div>
+    <h1>Disponibilités</h1>
+    <p class="lede">Le riad se loue en entier. Deux nuits minimum, jusqu'à neuf personnes.</p>
+  </header>
+
+  <div class="legend">
+    <span><span class="sw free"></span>Disponible</span>
+    <span><span class="sw busy"></span>Réservé</span>
+  </div>
+
+  <div class="months" id="months"></div>
+
+  <footer>
+    <p class="note" id="note">Chargement des disponibilités…</p>
+    <a class="cta" href="https://www.riaddarnum.com/r%C3%A9servations" target="_top">Demander ces dates</a>
+  </footer>
+</div>
+
+<script>
+const MOIS = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+
+function render(OCC){
+  const today = new Date();
+  const cles = Object.keys(OCC).filter(k => k[0] !== '_').sort();
+  let html = '';
+
+  for (const ym of cles){
+    const [y, mm] = ym.split('-').map(Number);
+    const m = mm - 1;
+    const busy = new Set(OCC[ym]);
+    const nbJours = new Date(y, m + 1, 0).getDate();
+    const decalage = (new Date(y, m, 1).getDay() + 6) % 7;
+
+    html += '<div class="m"><h2>' + MOIS[m] + ' <span class="yr">' + y + '</span></h2>'
+          + '<div class="dow"><div>L</div><div>M</div><div>M</div><div>J</div><div>V</div><div>S</div><div>D</div></div>'
+          + '<div class="grid">';
+    for (let p = 0; p < decalage; p++) html += '<div class="d pad"></div>';
+    for (let j = 1; j <= nbJours; j++){
+      const passe = new Date(y, m, j) < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      html += '<div class="d ' + (busy.has(j) ? 'busy' : 'free') + (passe ? ' past' : '') + '">' + j + '</div>';
+    }
+    html += '</div></div>';
+  }
+  document.getElementById('months').innerHTML = html;
+
+  const note = document.getElementById('note');
+  if (OCC._updated && cles.length){
+    const [a, mo, jo] = OCC._updated.split('-');
+    const dernier = cles[cles.length - 1].split('-');
+    note.textContent = 'Mise à jour le ' + Number(jo) + ' ' + MOIS[+mo - 1] + ' ' + a
+                     + '. Au-delà de ' + MOIS[+dernier[1] - 1] + ', nous consulter.';
+  } else {
+    note.textContent = 'Nous consulter pour connaître les disponibilités.';
+  }
+}
+
+fetch('occupancy.json', {cache:'no-cache'})
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(render)
+  .catch(() => {
+    document.getElementById('note').textContent =
+      'Disponibilités momentanément indisponibles. Écrivez-nous, nous vous répondons rapidement.';
+  });
+</script>
+</body>
+</html>
