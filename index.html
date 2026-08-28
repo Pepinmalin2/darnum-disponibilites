@@ -41,6 +41,12 @@
     display:flex; align-items:center; justify-content:center;
     padding:clamp(10px,2.5vw,18px);
   }
+  /* Sur téléphone le cadre est plus court : on resserre pour que la ligne de
+     mise à jour ne soit pas rognée. */
+  @media (max-width:480px){
+    body{padding:6px 10px}
+    .wrap{gap:9px}
+  }
   .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
       clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
   .wrap{width:100%;max-width:390px;display:flex;flex-direction:column;gap:12px}
