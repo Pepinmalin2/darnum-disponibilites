@@ -4,11 +4,13 @@ Dépôt **public** servant uniquement à publier le calendrier de disponibilité
 
 ## Contenu
 
-- `occupancy.json` — jours occupés par mois. Généré par le dépôt privé `riad-assakina-dashboard`,
+- `occupancy.json` — jours occupés par mois. Poussé automatiquement chaque nuit par le dépôt privé `riad-assakina-dashboard`,
   à partir du flux iCal Airbnb fusionné avec les réservations directes.
   Ne contient que des numéros de jour, aucune donnée personnelle.
 - `index.html` — calendrier public, intégré au site riaddarnum.com.
-- `_headers` — en-têtes Cloudflare Pages (CORS, cache).
+  Publié sur https://pepinmalin2.github.io/darnum-disponibilites/
+- `_headers` — en-têtes pour un hébergement Cloudflare Pages. Inerte sur GitHub Pages,
+  conservé au cas où l'hébergement changerait.
 
 ## Règle
 
